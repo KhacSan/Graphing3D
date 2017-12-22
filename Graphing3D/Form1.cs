@@ -1,4 +1,5 @@
-﻿using DevExpress.Utils.Svg;
+﻿
+using DevExpress.Utils.Svg;
 using SharpVectors.Converters;
 using System;
 using System.Collections.Generic;
@@ -15,27 +16,34 @@ using System.Windows.Forms;
 
 namespace Graphing3D
 {
-     public partial class Form1 : DevExpress.XtraEditors.XtraForm
+    public partial class Form1 : DevExpress.XtraEditors.XtraForm
     {
-        private double xMin2D,xMax2D,xMin3D,xMax3D ,yMin,yMax ;
+        private double xMin2D, xMax2D, xMin3D, xMax3D, yMin, yMax;
         SvgBitmap btm;
         private int check;
-        Paint paint3D = null, paint2D = null;
+        Plotting3D paint3D = null;
+        Plotting2D paint2D = null;
         private double xoayQuanhOy = 33.0, xoayQuanhOz = 24.0;
         Bitmap bitmap = null;
+        Bitmap bitmap2d = null;
         public Form1()
         {
             InitializeComponent();
             listView2D.View = View.Details;
-            listView2D.Columns.Add("X");
-            listView2D.Columns.Add("Y");
+            listView2D.Columns.Add("X", 70);
+            listView2D.Columns.Add("Y", 70);
             listView3D.View = View.Details;
-            listView3D.Columns.Add("X");
-            listView3D.Columns.Add("Y");
-            listView3D.Columns.Add("Z");
-            Control.CheckForIllegalCrossThreadCalls = false;
-            paint2D = new Paint();
-            paint3D = new Paint();
+            listView3D.Columns.Add("X", 50);
+            listView3D.Columns.Add("Y", 50);
+            listView3D.Columns.Add("Z", 50);
+            Double.TryParse(textBoxXMin2D.Text,out xMin2D);
+            Double.TryParse(textBoxXMax2D.Text, out xMax2D);
+            Double.TryParse(textBoxXMin3D.Text, out xMin3D);
+            Double.TryParse(textBoxXMax3D.Text,out xMax3D);
+            Double.TryParse(textBoxYMin3D.Text, out yMin);
+            Double.TryParse(textBoxYMax3D.Text, out yMax);
+            paint2D = new Plotting2D();
+            paint3D = new Plotting3D();
             check = 0;
         }
 
@@ -96,10 +104,9 @@ namespace Graphing3D
                         textBoxInfo2D.Text = "Lỗi giá trị Min >= Max!";
                     }
                     else textBoxInfo2D.Text = "XMin = " + xMin2D.ToString();
-                }   
+                }
             }
         }
-
 
         private void textBoxXMin3D_TextChanged(object sender, EventArgs e)
         {
@@ -122,52 +129,44 @@ namespace Graphing3D
                 }
             }
         }
-        
+
         public void renderPicture2D()
         {
-           if(bitmap != null)
+            if (bitmap2d != null)
             {
-                bitmap.Dispose();
+                bitmap2d.Dispose();
             }
             SaveImage(600, Application.StartupPath + "\\demo2d");
             try
             {
-                // Retrieve the image.
-               bitmap = (Bitmap)Image.FromFile(Application.StartupPath + "\\demo2d.png", true);
-               pictureBox2D.Image = bitmap;
-                
+                bitmap2d = (Bitmap)Image.FromFile(Application.StartupPath + "\\demo2d.png", true);
+                pictureBox2D.Image = bitmap2d;
             }
             catch (ArgumentException)
             {
                 MessageBox.Show("There was an error." +
                     "Check the path to the image file.");
             }
-       
+
         }
 
         public void renderPicture3D()
         {
-            if(bitmap != null)
+            if (bitmap != null)
             {
                 bitmap.Dispose();
             }
             SaveImage(600, Application.StartupPath + "\\demo3d");
             try
             {
-                // Retrieve the image.
-                bitmap = new Bitmap(Application.StartupPath+"\\demo3d.png", true);
+                bitmap = new Bitmap(Application.StartupPath + "\\demo3d.png", true);
                 pictureBox3D.Image = bitmap;
-
             }
             catch (ArgumentException)
             {
                 MessageBox.Show("There was an error." +
                     "Check the path to the image file.");
             }
-
-            //SaveImage(600, Application.StartupPath+"\\demo3d"+j);
-            //pictureBox3D.Image = new Bitmap(Application.StartupPath + "\\demo3d" + j + ".png"); if (j == 5) j = 1;
-            //else j++;
         }
 
         private void buttonPaint2D_Click(object sender, EventArgs e)
@@ -179,7 +178,7 @@ namespace Graphing3D
                 var result = MessageBox.Show(message, caption,
                                              MessageBoxButtons.OK,
                                              MessageBoxIcon.Error);
-                if(result == DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
                     if (textBoxFxy.Text.Equals(""))
                     {
@@ -193,14 +192,14 @@ namespace Graphing3D
                         }
                         else
                         {
-                                textBoxXMax2D.Focus();
+                            textBoxXMax2D.Focus();
                         }
                     }
                 }
             }
             else
             {
-                if(!Double.TryParse(textBoxXMin2D.Text,out xMin2D) || !Double.TryParse(textBoxXMax2D.Text, out xMax2D))
+                if (!Double.TryParse(textBoxXMin2D.Text, out xMin2D) || !Double.TryParse(textBoxXMax2D.Text, out xMax2D))
                 {
                     const string message = "Vui lòng nhập số!";
                     const string caption = "Error";
@@ -223,24 +222,23 @@ namespace Graphing3D
                 }
                 else
                 {
-                    if(xMin2D >= xMax2D)
+                    if (xMin2D >= xMax2D)
                     {
                         MessageBox.Show("Vui lòng nhập X: Min < Max !");
                         textBoxXMin2D.Focus();
                     }
                     else
                     {
-                        Thread thread = new Thread(paint2d);
-                        thread.IsBackground = true;
-                        thread.Start();
-                    }     
+                        listView2D.Items.Clear();
+                        paint2d();
+                    }
                 }
             }
         }
 
         private void xoayXNguoc_Click(object sender, EventArgs e)
         {
-            if(check == 1)
+            if (check == 1)
             {
                 xoayQuanhOz -= 20.0;
                 if (xoayQuanhOz <= 0.0) xoayQuanhOz = 360.0;
@@ -251,7 +249,7 @@ namespace Graphing3D
 
         private void xoayYNguoc_Click(object sender, EventArgs e)
         {
-            if(check == 1)
+            if (check == 1)
             {
                 xoayQuanhOy -= 10.0;
                 if (xoayQuanhOy <= 0.0) xoayQuanhOy = 1.0;
@@ -262,7 +260,7 @@ namespace Graphing3D
 
         private void xoayYXuoi_Click(object sender, EventArgs e)
         {
-            if(check == 1)
+            if (check == 1)
             {
                 xoayQuanhOy += 10.0;
                 if (xoayQuanhOy >= 90.0) xoayQuanhOy = 89.0;
@@ -270,6 +268,7 @@ namespace Graphing3D
                 renderPicture3D();
             }
         }
+
 
         private void xoayXXuoi_Click(object sender, EventArgs e)
         {
@@ -289,7 +288,7 @@ namespace Graphing3D
         }
 
         private void paint3d()
-        {     
+        {
             paint3D.funtion3D(xMin3D, xMax3D, yMin, yMax, listView3D, textBoxFxyz.Text);
             paint3D.Paint3D(textBoxFxyz.Text, xoayQuanhOy, xoayQuanhOz);
             renderPicture3D();
@@ -298,30 +297,30 @@ namespace Graphing3D
 
         private void buttonPaint3D_Click(object sender, EventArgs e)
         {
-          
-            if(textBoxFxyz.Text.Equals("") || textBoxXMin3D.Text.Equals("") || textBoxXMax3D.Text.Equals("")
+
+            if (textBoxFxyz.Text.Equals("") || textBoxXMin3D.Text.Equals("") || textBoxXMax3D.Text.Equals("")
                 || textBoxYMin3D.Text.Equals("") || textBoxYMax3D.Text.Equals(""))
             {
                 MessageBox.Show("Vui lòng nhập đủ thông tin !");
             }
             else
             {
-               if (!Double.TryParse(textBoxXMin3D.Text,out xMin3D)|| !Double.TryParse(textBoxXMax3D.Text, out xMax3D)
-                  ||!Double.TryParse(textBoxYMin3D.Text, out yMin) || !Double.TryParse(textBoxYMax3D.Text, out yMax))
+                if (!Double.TryParse(textBoxXMin3D.Text, out xMin3D) || !Double.TryParse(textBoxXMax3D.Text, out xMax3D)
+                   || !Double.TryParse(textBoxYMin3D.Text, out yMin) || !Double.TryParse(textBoxYMax3D.Text, out yMax))
                 {
                     MessageBox.Show("Lỗi nhập sai kiểu dữ liệu !");
                 }
                 else
                 {
-                    if(xMin3D >= xMax3D || yMin >= yMax)
+                    if (xMin3D >= xMax3D || yMin >= yMax)
                     {
                         MessageBox.Show("Lỗi nhập giá trị Min >= Max !");
                     }
                     else
                     {
-                        Thread thread = new Thread(paint3d);
-                        thread.IsBackground = true;
-                        thread.Start();
+                        check = 0;
+                        listView3D.Items.Clear();
+                        paint3d();
                     }
                 }
             }

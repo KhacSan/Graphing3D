@@ -9,9 +9,8 @@ using System.Windows.Forms;
 
 namespace Graphing3D
 {
-    unsafe class Paint
+    unsafe class Plotting3D
     {
-
         [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void c_plinit();
         [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -45,30 +44,23 @@ namespace Graphing3D
         [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void c_plsdev(string devname);
         [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void plFree2dGrid(double** f, int nx, int ny);
-        [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
         protected static extern int plAlloc2dGrid(ref double** f, int nx, int ny);
         [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern int c_plsfnam(String fnam);
-        [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void c_plline(int n, double[] x, double[] y);
-        [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void c_plenv(double xmin, double xmax, double ymin, double ymax, int just, int axis);
-        [DllImport("C:\\Users\\San\\Desktop\\plplot-5.13.0\\Build_New\\dll\\Debug\\plplot.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void c_pllab(string xlabel, string ylabel, string tlabel);
+       protected static extern int c_plsfnam(String fnam);
+       
 
         const int LEVELS = 10;
         const int MAG_COLOR = 0x004;// draw lines parallel to both the X and Y axis                               
         const int BASE_CONT = 0x008; // draw the mesh with a color dependent of the magnitude                         
         const int DRAW_LINEXY = 0x003;    // draw contour plot at bottom xy plane
 
-        private int XPTS ;          // so diem muon ve tren truc x
+        private int XPTS;          // so diem muon ve tren truc x
         private int YPTS;
-        double** z = null;
-        double[] clevel = null;
-        double xmin, xmax, ymin, ymax, zmin, zmax;
-        double[] x = null;
-        double[] y = null;
+        private double** z = null;
+        private double[] clevel = null;
+        private double xmin, xmax, ymin, ymax, zmin, zmax;
+        private double[] x = null;
+        private double[] y = null;
 
         static void cmap1_init()
         {
@@ -91,55 +83,7 @@ namespace Graphing3D
             c_plscmap1l(0, 2, i, h, l, s, null);
         }
 
-
-
-  
-        public void Paint2D(double xMin,double xMax,ListView list,String funtion2D)
-        {
-            double yMin = 10000, yMax = -10000;
-            int NSIZE =(int) (xMax-xMin)*100;
-            x = new double[NSIZE];
-            y = new double[NSIZE];
-
-            double step = (double)(xMax - xMin) / (double)NSIZE;
-
-            int i;
-            for (i = 0; i < NSIZE; i++)
-            {
-                x[i] = xMin + (double)(i) * step;
-                // Define the context of our expression
-                ExpressionContext context = new ExpressionContext();
-                // Allow the expression to use all static public methods of System.Math
-                context.Imports.AddType(typeof(Math));
-                // Define an int variable
-                context.Variables["x"] = x[i];
-                IGenericExpression<double> eGeneric = context.CompileGeneric<double>(funtion2D);
-                // Evaluate the expressions
-                y[i] = eGeneric.Evaluate();
-                loadListView(x[i], y[i], list);
-                if (yMax < y[i]) yMax = y[i];
-                if (yMin > y[i]) yMin = y[i];
-            }
-
-            c_plsfnam("demo2d");
-            c_plsdev("svg");
-            c_plinit();
-
-            //c_pladv(1);
-            c_plcol0(1);
-
-            c_plenv(xMin, xMax, yMin, yMax, 0, 0);
-            c_pllab("x", "y", "Do thi: y = "+funtion2D);
-
-            // Plot the data that was prepared above.
-            c_plline(NSIZE , x, y);
-
-            // Close PLplot library
-            c_plend();
-
-        }
-
-        public void funtion3D(double xMin, double xMax, double yMin, double yMax,ListView list, String funtion3D)
+        public void funtion3D(double xMin, double xMax, double yMin, double yMax, ListView list, String funtion3D)
         {
             xmin = xMin;
             xmax = xMax;
@@ -155,14 +99,14 @@ namespace Graphing3D
 
             int nlevel = LEVELS;
             clevel = new double[LEVELS];
-            double  step;
+            double step;
 
             // Parse and process command line arguments
 
             // (void)plparseopts(&argc, argv, PL_PARSE_FULL);
 
             // Initialize plplot
-            
+
             plAlloc2dGrid(ref z, XPTS, YPTS);
             double stepx = (xMax - xMin) / XPTS;
             double stepy = (yMax - yMin) / YPTS;
@@ -189,7 +133,7 @@ namespace Graphing3D
                     IGenericExpression<double> eGeneric = context.CompileGeneric<double>(funtion3D);
                     // Evaluate the expressions
                     z[i][j] = (double)eGeneric.Evaluate();
-                    loadListView(x[i], y[j], z[i][j], list);
+                    if (j % 5 == 0) loadListView(x[i], y[j], z[i][j], list);
                 }
             }
 
@@ -199,10 +143,10 @@ namespace Graphing3D
 
             for (i = 0; i < nlevel; i++)
                 clevel[i] = zmin + step + step * i;
-          
+
         }
 
-        public void Paint3D(String funtion3D,double xoayOY, double xoayOZ)
+        public void Paint3D(String funtion3D, double xoayOY, double xoayOZ)
         {
             c_plsdev("svg");
             c_plsfnam("demo3d");
@@ -228,21 +172,13 @@ namespace Graphing3D
 
             c_plend();
         }
-        private void loadListView(double x, double y, ListView list)
-        {
-            ListViewItem item = new ListViewItem();
-            item.Text = x.ToString();
-            item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = y.ToString() });
-            list.Items.Add(item);
-        }
 
         private void loadListView(double x, double y, double z, ListView list)
         {
-            ListViewItem item = new ListViewItem();
-            item.Text = x.ToString();
-            item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = y.ToString() });
-            item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = z.ToString() });
+            String[] row = { x.ToString(), y.ToString(), z.ToString() };
+            ListViewItem item = new ListViewItem(row);
             list.Items.Add(item);
         }
     }
 }
+

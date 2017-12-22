@@ -199,7 +199,7 @@
             this.listView2D.HoverSelection = true;
             this.listView2D.Location = new System.Drawing.Point(151, 0);
             this.listView2D.Name = "listView2D";
-            this.listView2D.Size = new System.Drawing.Size(125, 373);
+            this.listView2D.Size = new System.Drawing.Size(150, 373);
             this.listView2D.TabIndex = 1;
             this.listView2D.UseCompatibleStateImageBehavior = false;
             // 
@@ -433,7 +433,7 @@
             this.listView3D.HoverSelection = true;
             this.listView3D.Location = new System.Drawing.Point(151, 0);
             this.listView3D.Name = "listView3D";
-            this.listView3D.Size = new System.Drawing.Size(180, 373);
+            this.listView3D.Size = new System.Drawing.Size(170, 373);
             this.listView3D.TabIndex = 1;
             this.listView3D.UseCompatibleStateImageBehavior = false;
             // 
