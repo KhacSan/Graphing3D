@@ -44,6 +44,7 @@ namespace Graphing3D
             Double.TryParse(textBoxYMax3D.Text, out yMax);
             paint2D = new Plotting2D();
             paint3D = new Plotting3D();
+            Control.CheckForIllegalCrossThreadCalls = false;
             check = 0;
         }
 
@@ -171,7 +172,7 @@ namespace Graphing3D
 
         private void buttonPaint2D_Click(object sender, EventArgs e)
         {
-            if (textBoxFxy.Text.Equals("") || textBoxXMin2D.Text.Equals("") || textBoxXMax2D.Text.Equals(""))
+            if (textBoxFxy.Text.Trim().Equals("") || textBoxXMin2D.Text.Trim().Equals("") || textBoxXMax2D.Text.Trim().Equals(""))
             {
                 const string message = "Vui lòng nhập đủ thông tin!";
                 const string caption = "Error";
@@ -230,7 +231,7 @@ namespace Graphing3D
                     else
                     {
                         listView2D.Items.Clear();
-                        paint2d();
+                        paint2d(); 
                     }
                 }
             }
@@ -240,25 +241,15 @@ namespace Graphing3D
         {
             if (check == 1)
             {
-                xoayQuanhOz -= 20.0;
-                if (xoayQuanhOz <= 0.0) xoayQuanhOz = 360.0;
+                xoayQuanhOz += 10.0;
+                if (xoayQuanhOz >= 360.0) xoayQuanhOz = 0.0;
                 paint3D.Paint3D(textBoxFxyz.Text, xoayQuanhOy, xoayQuanhOz);
                 renderPicture3D();
             }
+           
         }
 
         private void xoayYNguoc_Click(object sender, EventArgs e)
-        {
-            if (check == 1)
-            {
-                xoayQuanhOy -= 10.0;
-                if (xoayQuanhOy <= 0.0) xoayQuanhOy = 1.0;
-                paint3D.Paint3D(textBoxFxyz.Text, xoayQuanhOy, xoayQuanhOz);
-                renderPicture3D();
-            }
-        }
-
-        private void xoayYXuoi_Click(object sender, EventArgs e)
         {
             if (check == 1)
             {
@@ -269,13 +260,24 @@ namespace Graphing3D
             }
         }
 
+        private void xoayYXuoi_Click(object sender, EventArgs e)
+        {
+            if (check == 1)
+            {
+                xoayQuanhOy -= 10.0;
+                if (xoayQuanhOy <= 0.0) xoayQuanhOy = 1.0;
+                paint3D.Paint3D(textBoxFxyz.Text, xoayQuanhOy, xoayQuanhOz);
+                renderPicture3D();
+            }
+        }
+
 
         private void xoayXXuoi_Click(object sender, EventArgs e)
         {
             if (check == 1)
             {
-                xoayQuanhOz += 20.0;
-                if (xoayQuanhOz >= 360.0) xoayQuanhOz = 0.0;
+                xoayQuanhOz -= 10.0;
+                if (xoayQuanhOz <= 0.0) xoayQuanhOz = 360.0;
                 paint3D.Paint3D(textBoxFxyz.Text, xoayQuanhOy, xoayQuanhOz);
                 renderPicture3D();
             }
@@ -283,14 +285,14 @@ namespace Graphing3D
 
         private void paint2d()
         {
-            paint2D.Paint2D(xMin2D, xMax2D, listView2D, textBoxFxy.Text);
+            paint2D.Paint2D(xMin2D, xMax2D, listView2D, textBoxFxy.Text.Trim());
             renderPicture2D();
         }
 
         private void paint3d()
         {
             paint3D.funtion3D(xMin3D, xMax3D, yMin, yMax, listView3D, textBoxFxyz.Text);
-            paint3D.Paint3D(textBoxFxyz.Text, xoayQuanhOy, xoayQuanhOz);
+            paint3D.Paint3D(textBoxFxyz.Text.Trim(), xoayQuanhOy, xoayQuanhOz);
             renderPicture3D();
             check = 1;
         }
@@ -298,8 +300,8 @@ namespace Graphing3D
         private void buttonPaint3D_Click(object sender, EventArgs e)
         {
 
-            if (textBoxFxyz.Text.Equals("") || textBoxXMin3D.Text.Equals("") || textBoxXMax3D.Text.Equals("")
-                || textBoxYMin3D.Text.Equals("") || textBoxYMax3D.Text.Equals(""))
+            if (textBoxFxyz.Text.Trim().Equals("") || textBoxXMin3D.Text.Trim().Equals("") || textBoxXMax3D.Text.Trim().Equals("")
+                || textBoxYMin3D.Text.Trim().Equals("") || textBoxYMax3D.Text.Trim().Equals(""))
             {
                 MessageBox.Show("Vui lòng nhập đủ thông tin !");
             }

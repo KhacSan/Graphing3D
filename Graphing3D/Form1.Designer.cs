@@ -40,12 +40,7 @@
             this.textBoxXMin2D = new System.Windows.Forms.TextBox();
             this.textBoxInfo2D = new System.Windows.Forms.TextBox();
             this.listView2D = new System.Windows.Forms.ListView();
-            this.pictureBox2D = new System.Windows.Forms.PictureBox();
             this.tabPage3D = new System.Windows.Forms.TabPage();
-            this.xoayYXuoi = new System.Windows.Forms.PictureBox();
-            this.xoayYNguoc = new System.Windows.Forms.PictureBox();
-            this.xoayXXuoi = new System.Windows.Forms.PictureBox();
-            this.xoayXNguoc = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -61,11 +56,16 @@
             this.textBoxXMin3D = new System.Windows.Forms.TextBox();
             this.textBoxFxyz = new System.Windows.Forms.TextBox();
             this.listView3D = new System.Windows.Forms.ListView();
+            this.pictureBox2D = new System.Windows.Forms.PictureBox();
+            this.xoayYXuoi = new System.Windows.Forms.PictureBox();
+            this.xoayYNguoc = new System.Windows.Forms.PictureBox();
+            this.xoayXXuoi = new System.Windows.Forms.PictureBox();
+            this.xoayXNguoc = new System.Windows.Forms.PictureBox();
             this.pictureBox3D = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2D.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2D)).BeginInit();
             this.tabPage3D.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xoayYXuoi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xoayYNguoc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xoayXXuoi)).BeginInit();
@@ -203,19 +203,6 @@
             this.listView2D.TabIndex = 1;
             this.listView2D.UseCompatibleStateImageBehavior = false;
             // 
-            // pictureBox2D
-            // 
-            this.pictureBox2D.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2D.Location = new System.Drawing.Point(281, 0);
-            this.pictureBox2D.Name = "pictureBox2D";
-            this.pictureBox2D.Size = new System.Drawing.Size(535, 373);
-            this.pictureBox2D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2D.TabIndex = 0;
-            this.pictureBox2D.TabStop = false;
-            // 
             // tabPage3D
             // 
             this.tabPage3D.Controls.Add(this.xoayYXuoi);
@@ -245,54 +232,6 @@
             this.tabPage3D.TabIndex = 1;
             this.tabPage3D.Text = "3D";
             this.tabPage3D.UseVisualStyleBackColor = true;
-            // 
-            // xoayYXuoi
-            // 
-            this.xoayYXuoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xoayYXuoi.Image = global::Graphing3D.Properties.Resources._3;
-            this.xoayYXuoi.Location = new System.Drawing.Point(746, 70);
-            this.xoayYXuoi.Name = "xoayYXuoi";
-            this.xoayYXuoi.Size = new System.Drawing.Size(30, 30);
-            this.xoayYXuoi.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.xoayYXuoi.TabIndex = 22;
-            this.xoayYXuoi.TabStop = false;
-            this.xoayYXuoi.Click += new System.EventHandler(this.xoayYXuoi_Click);
-            // 
-            // xoayYNguoc
-            // 
-            this.xoayYNguoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xoayYNguoc.Image = global::Graphing3D.Properties.Resources._4;
-            this.xoayYNguoc.Location = new System.Drawing.Point(746, 6);
-            this.xoayYNguoc.Name = "xoayYNguoc";
-            this.xoayYNguoc.Size = new System.Drawing.Size(30, 30);
-            this.xoayYNguoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.xoayYNguoc.TabIndex = 21;
-            this.xoayYNguoc.TabStop = false;
-            this.xoayYNguoc.Click += new System.EventHandler(this.xoayYNguoc_Click);
-            // 
-            // xoayXXuoi
-            // 
-            this.xoayXXuoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xoayXXuoi.Image = global::Graphing3D.Properties.Resources._2;
-            this.xoayXXuoi.Location = new System.Drawing.Point(780, 39);
-            this.xoayXXuoi.Name = "xoayXXuoi";
-            this.xoayXXuoi.Size = new System.Drawing.Size(30, 30);
-            this.xoayXXuoi.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.xoayXXuoi.TabIndex = 20;
-            this.xoayXXuoi.TabStop = false;
-            this.xoayXXuoi.Click += new System.EventHandler(this.xoayXXuoi_Click);
-            // 
-            // xoayXNguoc
-            // 
-            this.xoayXNguoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xoayXNguoc.Image = global::Graphing3D.Properties.Resources._1;
-            this.xoayXNguoc.Location = new System.Drawing.Point(714, 39);
-            this.xoayXNguoc.Name = "xoayXNguoc";
-            this.xoayXNguoc.Size = new System.Drawing.Size(30, 30);
-            this.xoayXNguoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.xoayXNguoc.TabIndex = 19;
-            this.xoayXNguoc.TabStop = false;
-            this.xoayXNguoc.Click += new System.EventHandler(this.xoayXNguoc_Click);
             // 
             // label7
             // 
@@ -437,12 +376,75 @@
             this.listView3D.TabIndex = 1;
             this.listView3D.UseCompatibleStateImageBehavior = false;
             // 
+            // pictureBox2D
+            // 
+            this.pictureBox2D.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2D.Image = global::Graphing3D.Properties.Resources.Capture2d;
+            this.pictureBox2D.Location = new System.Drawing.Point(307, 0);
+            this.pictureBox2D.Name = "pictureBox2D";
+            this.pictureBox2D.Size = new System.Drawing.Size(509, 373);
+            this.pictureBox2D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2D.TabIndex = 0;
+            this.pictureBox2D.TabStop = false;
+            // 
+            // xoayYXuoi
+            // 
+            this.xoayYXuoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.xoayYXuoi.Image = global::Graphing3D.Properties.Resources._3;
+            this.xoayYXuoi.Location = new System.Drawing.Point(746, 70);
+            this.xoayYXuoi.Name = "xoayYXuoi";
+            this.xoayYXuoi.Size = new System.Drawing.Size(30, 30);
+            this.xoayYXuoi.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.xoayYXuoi.TabIndex = 22;
+            this.xoayYXuoi.TabStop = false;
+            this.xoayYXuoi.Click += new System.EventHandler(this.xoayYXuoi_Click);
+            // 
+            // xoayYNguoc
+            // 
+            this.xoayYNguoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.xoayYNguoc.Image = global::Graphing3D.Properties.Resources._4;
+            this.xoayYNguoc.Location = new System.Drawing.Point(746, 6);
+            this.xoayYNguoc.Name = "xoayYNguoc";
+            this.xoayYNguoc.Size = new System.Drawing.Size(30, 30);
+            this.xoayYNguoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.xoayYNguoc.TabIndex = 21;
+            this.xoayYNguoc.TabStop = false;
+            this.xoayYNguoc.Click += new System.EventHandler(this.xoayYNguoc_Click);
+            // 
+            // xoayXXuoi
+            // 
+            this.xoayXXuoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.xoayXXuoi.Image = global::Graphing3D.Properties.Resources._2;
+            this.xoayXXuoi.Location = new System.Drawing.Point(780, 39);
+            this.xoayXXuoi.Name = "xoayXXuoi";
+            this.xoayXXuoi.Size = new System.Drawing.Size(30, 30);
+            this.xoayXXuoi.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.xoayXXuoi.TabIndex = 20;
+            this.xoayXXuoi.TabStop = false;
+            this.xoayXXuoi.Click += new System.EventHandler(this.xoayXXuoi_Click);
+            // 
+            // xoayXNguoc
+            // 
+            this.xoayXNguoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.xoayXNguoc.Image = global::Graphing3D.Properties.Resources._1;
+            this.xoayXNguoc.Location = new System.Drawing.Point(714, 39);
+            this.xoayXNguoc.Name = "xoayXNguoc";
+            this.xoayXNguoc.Size = new System.Drawing.Size(30, 30);
+            this.xoayXNguoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.xoayXNguoc.TabIndex = 19;
+            this.xoayXNguoc.TabStop = false;
+            this.xoayXNguoc.Click += new System.EventHandler(this.xoayXNguoc_Click);
+            // 
             // pictureBox3D
             // 
             this.pictureBox3D.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3D.Image = global::Graphing3D.Properties.Resources.image3d;
             this.pictureBox3D.Location = new System.Drawing.Point(337, 0);
             this.pictureBox3D.Name = "pictureBox3D";
             this.pictureBox3D.Size = new System.Drawing.Size(480, 373);
@@ -462,9 +464,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage2D.ResumeLayout(false);
             this.tabPage2D.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2D)).EndInit();
             this.tabPage3D.ResumeLayout(false);
             this.tabPage3D.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xoayYXuoi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xoayYNguoc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xoayXXuoi)).EndInit();
